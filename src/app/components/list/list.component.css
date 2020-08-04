@@ -1,0 +1,13 @@
+.wishlist {
+    cursor: pointer;
+}
+.msj{
+    display: none;
+}
+.show{
+    display: block;
+}
+.wishImg{
+    height: 100px;
+    width: 100px;
+}

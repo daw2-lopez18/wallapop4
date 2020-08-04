@@ -1,0 +1,102 @@
+<div class="container">
+    <div class="row">
+      <div class="col text-right">
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">
+           My Wish List &nbsp;<img src="./assets/images/corazonBlanco.png"/>
+        </button>
+      </div>
+    </div>
+    <h1>List of Products</h1>
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <input type="text" class="form-control" name="filterItems" placeholder="Search products..." [(ngModel)]="filterItems">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Price</th>
+              <th>Email</th>
+              <th>Wish List</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of items | paginate:page_size:page_number | filter:filterItems; index as i ">
+              <td>{{item.title}}</td>
+              <td>{{item.description}}</td>
+              <td>{{item.price}}</td>
+              <td>{{item.email}}</td>
+              <td (click)="wishList(i)" class="wishlist">
+                <img class="imgWhitelist" [src]="item.whitelist? './assets/images/sinFavorito.png' : './assets/images/favorito.png'" />
+                
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <mat-paginator [length]="20"
+               [pageSize]="5"
+               [pageSizeOptions]="pageSizeOptions"
+               (page)="handlePage($event)">
+        </mat-paginator>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col"></div>
+        <div class="msj" id="divMsj" role="alert">
+            <p id="msjWishList">Añadido a Wish List</p>
+        </div>
+        <div class="col"></div>
+    </div>
+    
+
+  
+  </div>
+
+
+
+  <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="exampleModalLabel">My Wish List</h1>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search products..." name="wishItems" [(ngModel)]="wishItems">
+        </div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Title</th>
+              <th>Wish List</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of favourites | wishlist:wishItems">
+              <td><img class="wishImg" src="{{item.image}}"/></td>
+              <td class="align-middle text-center">{{item.title}}</td>              
+              <td (click)="remove(item.title)" class="wishlist">                
+                  <img src="./assets/images/favorito.png" class="imgWhitelist"/>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
